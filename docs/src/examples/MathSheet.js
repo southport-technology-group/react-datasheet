@@ -31,7 +31,7 @@ export default class MathSheet extends React.Component {
   generateGrid() {
     return [0, 1,2,3,4].map((row, i) => 
       ['', 'A', 'B', 'C', 'D'].map((col, j) => {
-        if(i == 0 && j == 0) {
+        if(i === 0 && j === 0) {
           return {readOnly: true, value: ''}
         }
         if(row === 0) {
@@ -50,9 +50,9 @@ export default class MathSheet extends React.Component {
     const matches = expr.match(/[A-Z][1-9]+/g) || [];
     matches.map(match => {
       if(trailKeys.indexOf(match) > -1) {
-        valid = false
+        return valid = false
       } else {
-        valid = this.validateExp([...trailKeys, match], this.state[match].expr)
+        return valid = this.validateExp([...trailKeys, match], this.state[match].expr)
       }
     })
     return valid

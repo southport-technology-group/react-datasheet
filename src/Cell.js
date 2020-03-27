@@ -5,11 +5,11 @@ import CellShape from './CellShape'
 export default class Cell extends PureComponent {
   render () {
     const {
-          cell, row, col, attributesRenderer,
-          className, style, onMouseDown, onMouseOver, onDoubleClick, onContextMenu
-        } = this.props
+      cell, row, col, attributesRenderer,
+      className, style, onMouseDown, onMouseOver, onDoubleClick, onContextMenu
+    } = this.props
 
-    const {colSpan, rowSpan} = cell
+    const { colSpan, rowSpan } = cell
     const attributes = attributesRenderer ? attributesRenderer(cell, row, col) : {}
 
     return (

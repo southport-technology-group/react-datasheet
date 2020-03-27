@@ -18,7 +18,7 @@ export default class DataEditor extends PureComponent {
   }
 
   render () {
-    const {value, onKeyDown} = this.props
+    const { value, onKeyDown } = this.props
     return (
       <input
         ref={input => { this._input = input }}

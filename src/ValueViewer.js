@@ -5,7 +5,7 @@ import CellShape from './CellShape'
 
 export default class ValueViewer extends PureComponent {
   render () {
-    const {value} = this.props
+    const { value } = this.props
     return (
       <span className='value-viewer'>
         {value}
