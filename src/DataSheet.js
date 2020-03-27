@@ -427,7 +427,7 @@ export default class DataSheet extends PureComponent {
         e.preventDefault()
         let func = this.onRevert // ESCAPE_KEY
         if (keyCode === ENTER_KEY) {
-          func = () => this.handleNavigate(e, { i: offset, j: 0 })
+          func = () => this.handleNavigate(e, { i: offset, j: 0 }, true)
         } else if (keyCode === TAB_KEY) {
           func = () => this.handleNavigate(e, { i: 0, j: offset }, true)
         }
