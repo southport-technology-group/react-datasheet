@@ -63,7 +63,6 @@ export default class ComponentSheet extends React.Component {
     rows = rows.concat(_.range(1, this.state.items + 1).map(id => [{readOnly: true, value: `Item ${id}`}, {value: groceryValue(id), component: component(id)}]))
 
     rows = rows.concat([[{readOnly: true, value: 'Total'}, {readOnly: true, value: `${total.toFixed(2)} $`}]])
-    console.log(rows)
     return rows
   }
 
