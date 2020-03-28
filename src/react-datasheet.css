@@ -105,5 +105,6 @@ span.data-grid-container, span.data-grid-container:focus {
   background-color: rgb(33, 133, 208);
   border: solid white 1px;
   box-sizing: border-box;
+  cursor: crosshair;
   z-index: 1;
 }
