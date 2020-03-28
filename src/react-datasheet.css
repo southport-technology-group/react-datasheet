@@ -99,9 +99,11 @@ span.data-grid-container, span.data-grid-container:focus {
   position: absolute;
   bottom: 0;
   right: 0;
-  height: 7px;
-  width: 7px;
+  height: 10px;
+  width: 10px;
   margin: 0 -5px -5px 0;
   background-color: rgb(33, 133, 208);
   border: solid white 1px;
+  box-sizing: border-box;
+  z-index: 1;
 }
