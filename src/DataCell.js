@@ -197,6 +197,7 @@ export default class DataCell extends PureComponent {
       valueViewer,
       attributesRenderer,
       selected,
+      selecting,
       lastSelected,
       editing,
       onKeyUp
@@ -238,7 +239,7 @@ export default class DataCell extends PureComponent {
         onKeyUp={onKeyUp}
       >
         {content}
-        {lastSelected && <CopyDownHandle />}
+        {lastSelected && <CopyDownHandle selecting={selecting} />}
       </CellRenderer>
     )
   }
@@ -250,6 +251,7 @@ DataCell.propTypes = {
   cell: PropTypes.shape(CellShape).isRequired,
   forceEdit: PropTypes.bool,
   selected: PropTypes.bool,
+  selecting: PropTypes.bool,
   lastSelected: PropTypes.bool,
   editing: PropTypes.bool,
   editValue: PropTypes.any,

@@ -554,7 +554,7 @@ export default class DataSheet extends PureComponent {
       dataRenderer, valueRenderer, dataEditor, valueViewer, attributesRenderer,
       className, overflow, data, keyFn
     } = this.props
-    const { forceEdit } = this.state
+    const { forceEdit, selecting } = this.state
 
     return (
       <span ref={r => { this.dgDom = r }} tabIndex='0' className='data-grid-container' onKeyDown={this.handleKey}>
@@ -580,6 +580,7 @@ export default class DataSheet extends PureComponent {
                       onNavigate={this.handleKeyboardCellMovement}
                       onKey={this.handleKey}
                       selected={this.isSelected(i, j)}
+                      selecting={selecting}
                       lastSelected={this.isBottomRightSelected(i, j)}
                       editing={isEditing}
                       clearing={this.isClearing(i, j)}

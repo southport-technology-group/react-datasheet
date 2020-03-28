@@ -108,3 +108,7 @@ span.data-grid-container, span.data-grid-container:focus {
   cursor: crosshair;
   z-index: 1;
 }
+
+.cursor-disabled {
+  cursor: unset;
+}
