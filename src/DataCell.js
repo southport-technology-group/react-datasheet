@@ -15,6 +15,7 @@ import Cell from './Cell'
 import CellShape from './CellShape'
 import DataEditor from './DataEditor'
 import ValueViewer from './ValueViewer'
+import CopyDownHandle from './CopyDownHandle'
 import { renderValue, renderData } from './renderHelpers'
 
 function initialData ({ cell, row, col, valueRenderer, dataRenderer }) {
@@ -196,6 +197,7 @@ export default class DataCell extends PureComponent {
       valueViewer,
       attributesRenderer,
       selected,
+      lastSelected,
       editing,
       onKeyUp
     } = this.props
@@ -236,6 +238,7 @@ export default class DataCell extends PureComponent {
         onKeyUp={onKeyUp}
       >
         {content}
+        {lastSelected && <CopyDownHandle />}
       </CellRenderer>
     )
   }
@@ -247,6 +250,7 @@ DataCell.propTypes = {
   cell: PropTypes.shape(CellShape).isRequired,
   forceEdit: PropTypes.bool,
   selected: PropTypes.bool,
+  lastSelected: PropTypes.bool,
   editing: PropTypes.bool,
   editValue: PropTypes.any,
   clearing: PropTypes.bool,

@@ -533,6 +533,13 @@ export default class DataSheet extends PureComponent {
       (posX && negY)
   }
 
+  isBottomRightSelected (i, j) {
+    const { start, end } = this.getState()
+    const largestI = start.i > end.i ? start.i : end.i
+    const largestJ = start.j > end.j ? start.j : end.j
+    return i === largestI && j === largestJ
+  }
+
   isEditing (i, j) {
     return this.state.editing.i === i && this.state.editing.j === j
   }
@@ -573,6 +580,7 @@ export default class DataSheet extends PureComponent {
                       onNavigate={this.handleKeyboardCellMovement}
                       onKey={this.handleKey}
                       selected={this.isSelected(i, j)}
+                      lastSelected={this.isBottomRightSelected(i, j)}
                       editing={isEditing}
                       clearing={this.isClearing(i, j)}
                       attributesRenderer={attributesRenderer}
