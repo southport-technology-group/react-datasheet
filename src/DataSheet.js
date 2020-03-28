@@ -540,6 +540,12 @@ export default class DataSheet extends PureComponent {
     return i === largestI && j === largestJ
   }
 
+  copydownHandlers = {
+    onDragStart: () => {},
+    onDrag: () => {},
+    onDragEnd: () => {},
+  }
+
   isEditing (i, j) {
     return this.state.editing.i === i && this.state.editing.j === j
   }
@@ -582,6 +588,7 @@ export default class DataSheet extends PureComponent {
                       selected={this.isSelected(i, j)}
                       selecting={selecting}
                       lastSelected={this.isBottomRightSelected(i, j)}
+                      copydownHandlers={this.copydownHandlers}
                       editing={isEditing}
                       clearing={this.isClearing(i, j)}
                       attributesRenderer={attributesRenderer}

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 
 export default class CopyDownHandle extends PureComponent {
   render() {
-    const { selecting } = this.props
+    const { selecting, copydownHandlers } = this.props
+    const { onDragStart, onDrag, onDragEnd } = copydownHandlers
     const className = [
       'copydown-handle',
       selecting && 'cursor-disabled',
@@ -12,11 +13,21 @@ export default class CopyDownHandle extends PureComponent {
     .join(' ')
 
     return (
-      <div className={className}></div>
+      <div
+        className={className}
+        onDragStart={onDragStart}
+        onDrag={onDrag}
+        onDragEnd={onDragEnd}
+      ></div>
     )
   }
 }
 
 CopyDownHandle.propTypes = {
-  selecting: PropTypes.bool
+  selecting: PropTypes.bool,
+  copydownHandlers: PropTypes.shape({
+    onDragStart: PropTypes.func.isRequired,
+    onDrag: PropTypes.func.isRequired,
+    onDragEnd: PropTypes.func.isRequired,
+  }).isRequired
 }
