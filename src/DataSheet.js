@@ -490,12 +490,33 @@ export default class DataSheet extends PureComponent {
   }
 
   onMouseOver (i, j) {
+    const { start, end } = this.state
+    function calculateCopydownTarget(coords) {
+      // Establish selection bounds
+      const smallestI = Math.min(start.i, end.i)
+      const largestI = Math.max(start.i, end.i)
+      const smallestJ = Math.min(start.j, end.j)
+      const largestJ = Math.max(start.j, end.j)
+      
+      // If dragging within selection, target is {}
+      if (coords.i >= smallestI && 
+        coords.i <= largestI &&
+        coords.j >= smallestJ &&
+        coords.j <= largestJ) return {}
+      // Otherwise get the delta...
+      else {
+        return {coords}
+      }
+    }
+    
     if (this.state.selecting && isEmpty(this.state.editing)) {
       this._setState({ end: { i, j } })
     }
 
     if (this.state.copydownDragging) {
       // Update the copydownTarget state
+      const target = calculateCopydownTarget({i, j})
+      this._setState({ copydownTarget: target })
     }
   }
 
