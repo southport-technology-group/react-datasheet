@@ -2,9 +2,19 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 export default class CopyDownHandle extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.handleMouseDown = this.handleMouseDown.bind(this);
+  }
+  
+  handleMouseDown (e) {
+    e.persist()
+    e.fromCopydownHandle = true
+    this.props.onMouseDown.apply(this, [,,e]);
+  }
+
   render() {
-    const { selecting, copydownHandlers } = this.props
-    const { onDragStart, onDrag, onDragEnd } = copydownHandlers
+    const { selecting, onMouseDown } = this.props
     const className = [
       'copydown-handle',
       selecting && 'cursor-disabled',
@@ -15,9 +25,7 @@ export default class CopyDownHandle extends PureComponent {
     return (
       <div
         className={className}
-        onDragStart={onDragStart}
-        onDrag={onDrag}
-        onDragEnd={onDragEnd}
+        onMouseDown={this.handleMouseDown}
       ></div>
     )
   }
@@ -25,9 +33,5 @@ export default class CopyDownHandle extends PureComponent {
 
 CopyDownHandle.propTypes = {
   selecting: PropTypes.bool,
-  copydownHandlers: PropTypes.shape({
-    onDragStart: PropTypes.func.isRequired,
-    onDrag: PropTypes.func.isRequired,
-    onDragEnd: PropTypes.func.isRequired,
-  }).isRequired
+  onMouseDown: PropTypes.func.isRequired
 }

@@ -37,6 +37,9 @@ span.data-grid-container, span.data-grid-container:focus {
   color: #999;
   text-align: center;
 }
+.data-grid-container .data-grid .cell.copydown-dragging {
+  cursor: crosshair;
+}
 
 .data-grid-container .data-grid .cell > .text {
   padding: 2px 5px;

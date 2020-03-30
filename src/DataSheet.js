@@ -55,6 +55,8 @@ export default class DataSheet extends PureComponent {
       start: {},
       end: {},
       selecting: false,
+      copydownDragging: false,
+      copydownTarget: {},
       forceEdit: false,
       editing: {},
       clear: {}
@@ -457,7 +459,8 @@ export default class DataSheet extends PureComponent {
       ? {} : this.state.editing
 
     this._setState({
-      selecting: !isNowEditingSameCell,
+      selecting: !isNowEditingSameCell && !e.fromCopydownHandle,
+      copydownDragging: e.fromCopydownHandle,
       start: e.shiftKey ? this.state.start : { i, j },
       end: { i, j },
       editing: editing,
@@ -490,10 +493,17 @@ export default class DataSheet extends PureComponent {
     if (this.state.selecting && isEmpty(this.state.editing)) {
       this._setState({ end: { i, j } })
     }
+
+    if (this.state.copydownDragging) {
+      // Update the copydownTarget state
+    }
   }
 
   onMouseUp () {
-    this._setState({ selecting: false })
+    this._setState({ selecting: false, copydownDragging: false })
+    if(this.state.copydownDragging && !isEmpty(this.state.copydownTarget)) {
+      // Update the cell values
+    }
     document.removeEventListener('mouseup', this.onMouseUp)
   }
 
@@ -540,12 +550,6 @@ export default class DataSheet extends PureComponent {
     return i === largestI && j === largestJ
   }
 
-  copydownHandlers = {
-    onDragStart: () => {},
-    onDrag: () => {},
-    onDragEnd: () => {},
-  }
-
   isEditing (i, j) {
     return this.state.editing.i === i && this.state.editing.j === j
   }
@@ -560,7 +564,7 @@ export default class DataSheet extends PureComponent {
       dataRenderer, valueRenderer, dataEditor, valueViewer, attributesRenderer,
       className, overflow, data, keyFn
     } = this.props
-    const { forceEdit, selecting } = this.state
+    const { forceEdit, selecting, copydownDragging } = this.state
 
     return (
       <span ref={r => { this.dgDom = r }} tabIndex='0' className='data-grid-container' onKeyDown={this.handleKey}>
@@ -587,8 +591,8 @@ export default class DataSheet extends PureComponent {
                       onKey={this.handleKey}
                       selected={this.isSelected(i, j)}
                       selecting={selecting}
+                      copydownDragging={copydownDragging}
                       lastSelected={this.isBottomRightSelected(i, j)}
-                      copydownHandlers={this.copydownHandlers}
                       editing={isEditing}
                       clearing={this.isClearing(i, j)}
                       attributesRenderer={attributesRenderer}

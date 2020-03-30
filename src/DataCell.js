@@ -198,10 +198,11 @@ export default class DataCell extends PureComponent {
       attributesRenderer,
       selected,
       selecting,
+      copydownDragging,
       lastSelected,
-      copydownHandlers,
       editing,
-      onKeyUp
+      onKeyUp,
+      onMouseDown
     } = this.props
     const { updated } = this.state
 
@@ -215,6 +216,7 @@ export default class DataCell extends PureComponent {
       'cell',
       cell.overflow,
       selected && 'selected',
+      copydownDragging && 'copydown-dragging',
       editing && 'editing',
       cell.readOnly && 'read-only',
       updated && 'updated'
@@ -240,7 +242,7 @@ export default class DataCell extends PureComponent {
         onKeyUp={onKeyUp}
       >
         {content}
-        {lastSelected && <CopyDownHandle selecting={selecting} copydownHandlers={copydownHandlers} />}
+        {lastSelected && <CopyDownHandle selecting={selecting} onMouseDown={onMouseDown} />}
       </CellRenderer>
     )
   }
@@ -254,11 +256,6 @@ DataCell.propTypes = {
   selected: PropTypes.bool,
   selecting: PropTypes.bool,
   lastSelected: PropTypes.bool,
-  copydownHandlers: PropTypes.shape({
-    onDragStart: PropTypes.func.isRequired,
-    onDrag: PropTypes.func.isRequired,
-    onDragEnd: PropTypes.func.isRequired,
-  }).isRequired,
   editing: PropTypes.bool,
   editValue: PropTypes.any,
   clearing: PropTypes.bool,
