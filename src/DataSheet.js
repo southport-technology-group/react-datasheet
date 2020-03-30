@@ -461,8 +461,8 @@ export default class DataSheet extends PureComponent {
     this._setState({
       selecting: !isNowEditingSameCell && !e.fromCopydownHandle,
       copydownDragging: e.fromCopydownHandle,
-      start: e.shiftKey ? this.state.start : { i, j },
-      end: { i, j },
+      start: e.shiftKey | e.fromCopydownHandle ? this.state.start : { i, j },
+      end: e.fromCopydownHandle ? this.state.end : { i, j },
       editing: editing,
       forceEdit: !!isNowEditingSameCell
     })
