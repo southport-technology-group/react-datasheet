@@ -197,6 +197,7 @@ export default class DataCell extends PureComponent {
       valueViewer,
       attributesRenderer,
       selected,
+      copydownTargeted,
       selecting,
       copydownDragging,
       lastSelected,
@@ -216,6 +217,7 @@ export default class DataCell extends PureComponent {
       'cell',
       cell.overflow,
       selected && 'selected',
+      copydownTargeted && 'copydown-targeted',
       copydownDragging && 'copydown-dragging',
       editing && 'editing',
       cell.readOnly && 'read-only',
@@ -254,6 +256,7 @@ DataCell.propTypes = {
   cell: PropTypes.shape(CellShape).isRequired,
   forceEdit: PropTypes.bool,
   selected: PropTypes.bool,
+  copydownTargeted: PropTypes.bool,
   selecting: PropTypes.bool,
   lastSelected: PropTypes.bool,
   editing: PropTypes.bool,
@@ -278,6 +281,7 @@ DataCell.propTypes = {
 DataCell.defaultProps = {
   forceEdit: false,
   selected: false,
+  copydownTargeted: false,
   editing: false,
   clearing: false,
   cellRenderer: Cell

@@ -529,10 +529,10 @@ export default class DataSheet extends PureComponent {
   }
 
   onMouseUp () {
-    this._setState({ selecting: false, copydownDragging: false })
     if(this.state.copydownDragging && !isEmpty(this.state.copydownTarget)) {
       // Update the cell values
     }
+    this._setState({ selecting: false, copydownDragging: false, copydownTarget: {} })
     document.removeEventListener('mouseup', this.onMouseUp)
   }
 
@@ -579,6 +579,33 @@ export default class DataSheet extends PureComponent {
     return i === largestI && j === largestJ
   }
 
+  isCopydownTargeted (i, j) {
+    const { copydownTarget: target, start, end } = this.state
+
+    if (isEmpty(target)) return false
+
+    // Establish selection bounds
+    const smallestI = Math.min(start.i, end.i)
+    const largestI = Math.max(start.i, end.i)
+    const smallestJ = Math.min(start.j, end.j)
+    const largestJ = Math.max(start.j, end.j)
+
+    if (target.i) {
+      // Within selection j and in target i return true
+      const jWithinSelection = (j >= smallestJ) && (j <= largestJ)
+      const iWithinTarget = target.i > 0 ? (i > largestI) && (i <= largestI + target.i) : (i < smallestI) && (i >= smallestI + target.i)
+
+      return jWithinSelection && iWithinTarget
+    }
+    else if (target.j) {
+      // Within selection i and in target j return true
+      const iWithinSelection = (i >= smallestI) && (i <= largestI)
+      const jWithinTarget = target.j > 0 ? (j > largestJ) && (j <= largestJ + target.j) : (j < smallestJ) && (j >= smallestJ + target.j)
+  
+      return iWithinSelection && jWithinTarget
+    }
+  }
+
   isEditing (i, j) {
     return this.state.editing.i === i && this.state.editing.j === j
   }
@@ -619,6 +646,7 @@ export default class DataSheet extends PureComponent {
                       onNavigate={this.handleKeyboardCellMovement}
                       onKey={this.handleKey}
                       selected={this.isSelected(i, j)}
+                      copydownTargeted={this.isCopydownTargeted(i, j)}
                       selecting={selecting}
                       copydownDragging={copydownDragging}
                       lastSelected={this.isBottomRightSelected(i, j)}
