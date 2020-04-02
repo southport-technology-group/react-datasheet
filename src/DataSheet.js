@@ -531,28 +531,35 @@ export default class DataSheet extends PureComponent {
   onMouseUp () {
     const { copydownDragging, copydownTarget, start } = this.state
     const { data, onCellsChanged } = this.props
+    
     // If copydown in progress, paste in the selection
+    // Currently only supports pasting of a single cell, needs a rewrite to support multi-cell copydown
     if(copydownDragging && !isEmpty(copydownTarget)) {
       // Make array with coords and values
       const changes = []
 
       // Vertical or horizontal copydown
       const isVertical = !!copydownTarget.i
-      const changedSide = isVertical ? 'row' : 'col'
+      const extendedSide = isVertical ? 'row' : 'col'
       const constantSide = isVertical ? 'col' : 'row'
       const constantCoord = isVertical ? start.j : start.i
       const changeTemplate = {}
       changeTemplate[constantSide] = constantCoord
       changeTemplate.value = data[start.i][start.j].value
 
+      // Number of rows/cols copied into
       const offset = copydownTarget.i | copydownTarget.j
+
+      // Coordinates of first and last col
       const startingPoint = isVertical ? offset > 0 ? start.i + 1 : start.i + offset
         : offset > 0 ? start.j + 1 : start.j + offset 
       const max = isVertical ? offset > 0 ? start.i + offset : start.i - 1
       : offset > 0 ? start.j + offset : start.j - 1
+
       for (let x = startingPoint; x <= max; x++) {
         const change = {...changeTemplate}
-        change[changedSide] = x
+        change[extendedSide] = x
+        change.cell = isVertical ? data[x][constantCoord] : data[constantCoord][x]
         if (!data[change.row][change.col].readOnly) changes.push(change)
       }
 
