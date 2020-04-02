@@ -605,6 +605,11 @@ export default class DataSheet extends PureComponent {
     const largestJ = start.j > end.j ? start.j : end.j
     return i === largestI && j === largestJ
   }
+  
+  isSingleSelected (i, j) {
+    const { start, end } = this.getState()
+    return i === start.i && i === end.i && j === start.j && j === end.j
+  }
 
   isCopydownTargeted (i, j) {
     const { copydownTarget: target, start, end } = this.state
@@ -676,7 +681,7 @@ export default class DataSheet extends PureComponent {
                       copydownTargeted={this.isCopydownTargeted(i, j)}
                       selecting={selecting}
                       copydownDragging={copydownDragging}
-                      lastSelected={this.isBottomRightSelected(i, j)}
+                      lastSelected={this.isSingleSelected(i, j)} // Replace with isBottomRightSelected to enable multicell copydown
                       editing={isEditing}
                       clearing={this.isClearing(i, j)}
                       attributesRenderer={attributesRenderer}
