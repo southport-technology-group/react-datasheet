@@ -530,6 +530,7 @@ export default class DataSheet extends PureComponent {
 
   onMouseUp () {
     const { copydownDragging, copydownTarget, start } = this.state
+    const { data, onCellsChanged } = this.props
     // If copydown in progress, paste in the selection
     if(copydownDragging && !isEmpty(copydownTarget)) {
       // Make array with coords and values
@@ -542,7 +543,7 @@ export default class DataSheet extends PureComponent {
       const constantCoord = isVertical ? start.j : start.i
       const changeTemplate = {}
       changeTemplate[constantSide] = constantCoord
-      changeTemplate.value = this.props.data[start.i][start.j].value
+      changeTemplate.value = data[start.i][start.j].value
 
       const offset = copydownTarget.i | copydownTarget.j
       const startingPoint = isVertical ? offset > 0 ? start.i + 1 : start.i + offset
@@ -552,12 +553,12 @@ export default class DataSheet extends PureComponent {
       for (let x = startingPoint; x <= max; x++) {
         const change = {...changeTemplate}
         change[changedSide] = x
-        changes.push(change)
+        if (!data[change.row][change.col].readOnly) changes.push(change)
       }
 
       // Apply the changes
       console.log('changes', changes)
-      this.props.onCellsChanged(changes)
+      onCellsChanged(changes)
     }
     this._setState({ selecting: false, copydownDragging: false, copydownTarget: {} })
     document.removeEventListener('mouseup', this.onMouseUp)
