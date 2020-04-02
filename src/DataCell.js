@@ -217,7 +217,7 @@ export default class DataCell extends PureComponent {
       'cell',
       cell.overflow,
       selected && 'selected',
-      copydownTargeted && 'copydown-targeted',
+      (copydownTargeted && !cell.readOnly) && 'copydown-targeted',
       copydownDragging && 'copydown-dragging',
       editing && 'editing',
       cell.readOnly && 'read-only',
