@@ -564,8 +564,7 @@ export default class DataSheet extends PureComponent {
       }
 
       // Apply the changes
-      console.log('changes', changes)
-      onCellsChanged(changes)
+      if (changes.length) onCellsChanged(changes)
     }
     this._setState({ selecting: false, copydownDragging: false, copydownTarget: {} })
     document.removeEventListener('mouseup', this.onMouseUp)
