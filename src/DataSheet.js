@@ -448,7 +448,7 @@ export default class DataSheet extends PureComponent {
 
   onDoubleClick (i, j) {
     const cell = this.props.data[i][j]
-    if (!cell.readOnly) {
+    if (!cell.readOnly && !cell.disableEditMode) {
       this._setState({ editing: { i: i, j: j }, forceEdit: true, clear: {} })
     }
   }
