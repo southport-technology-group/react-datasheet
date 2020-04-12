@@ -151,6 +151,10 @@ export default class DataCell extends PureComponent {
     }
   }
 
+  isEditModeDisabled() {
+    return this.props.disableEditMode || this.props.cell.disableEditMode;
+  }
+
   getEditValue () {
     return this.props.editValue === undefined ? '' : this.props.editValue
   }
@@ -201,12 +205,12 @@ export default class DataCell extends PureComponent {
       selecting,
       copydownDragging,
       lastSelected,
-      editing,
       onKeyUp,
       onMouseDown
     } = this.props
     const { updated } = this.state
 
+    const editing = !this.isEditModeDisabled() && this.props.editing;
     const content =
       this.renderComponent(editing, cell) ||
       this.renderEditor(editing, cell, row, col, dataEditor) ||
