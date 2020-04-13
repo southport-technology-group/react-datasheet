@@ -40,7 +40,7 @@ span.data-grid-container, span.data-grid-container:focus {
 .data-grid-container .data-grid .cell.copydown-dragging {
   cursor: crosshair;
 }
-.data-grid-container .data-grid .cell.copydown-targeted *:first-child {
+.data-grid-container .data-grid .cell.copydown-targeted > *:first-child {
   border: 1px dashed gray;
   margin: -1px;
 }
