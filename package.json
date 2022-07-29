@@ -4,15 +4,12 @@
   "description": "Excel-like data grid for React",
   "repository": {
     "type": "git",
-    "url": "https://github.com/luciancic/react-datasheet.git"
+    "url": "https://github.com/southport-technology-group/react-datasheet.git"
   },
-  "authors": [
-    "Nadim Islam",
-    "Lucian Condrea"
-  ],
+  "author": "Southport Technology Group",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/luciancic/react-datasheet/issues"
+    "url": "https://github.com/southport-technology-group/react-datasheet/issues"
   },
   "keywords": [
     "react-component",
